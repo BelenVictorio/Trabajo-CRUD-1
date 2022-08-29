@@ -17,7 +17,9 @@ const toThousand = n => n.toFixed(0).toString().replace(/\B(?=(\d{3})+(?!\d))/g,
 const controller = {
 	// Root - Show all products
 	index: (req, res) => {
+
 		let products = readProducts()
+
 		return res.render('products',{
 			products,
 			toThousand
@@ -26,7 +28,10 @@ const controller = {
 
 	// Detail - Detail from one product
 	detail: (req, res) => {
-		const product = readProducts().find(product => product.id === +req.params.id);
+
+		let products = readProducts();
+
+		const product = products.find(product => product.id === +req.params.id);
 		return res.render('detail', {
 			product,
 			toThousand
@@ -51,7 +56,7 @@ const controller = {
 			description,
 			price: +price,
 			discount: +discount,
-			image: "default-image.png",
+			image: req.file ? req.file.filename : "default-image.png",
 			category
 		}
 
@@ -63,8 +68,10 @@ const controller = {
 
 	// Update - Form to edit
 	edit: (req, res) => {
-		
-		let product = readProducts().find(product => product.id === +req.params.id);
+
+		let products = readProducts();
+
+		let product = products.find(product => product.id === +req.params.id);
 		return res.render('product-edit-form', {
 			product
 		})
@@ -72,10 +79,14 @@ const controller = {
 	// Update - Method to update
 	update: (req, res) => {
 
+		let products = readProducts();
+
 		const {id} = req.params;
+		const product = products.find(product => product.id === +req.params.id);
+
 		const {name,price,discount,description,category} = req.body;
 
-		const productModify = readProducts().map(product => {
+		const productModify = products.map(product => {
 			if(product.id === +id){
 				let productModify = {
 					...product,
@@ -83,12 +94,23 @@ const controller = {
 					price: +price,
 					discount: +discount,
 					description: description.trim(),
+					image: req.file ? req.file.filename : product.image,
 					category
 				}
 				return productModify;
 			}
 			return product;
 		})
+
+		if(req.file && product.image !== 'default-image.png'){
+
+			if(fs.existsSync('./public/images/products/' + product.image)){
+				
+				fs.unlinkSync('./public/images/products/' + product.image);
+			}
+			
+		}
+		
 		saveProducts(productModify);
 		return res.redirect('/products')
 	},
@@ -98,7 +120,7 @@ const controller = {
 
 		let products = readProducts();
 
-		const productsModify = readProducts().filter(product => product.id !== +req.params.id);
+		const productsModify = products.filter(product => product.id !== +req.params.id);
 
 		saveProducts(productsModify);
 

@@ -48,7 +48,7 @@
       "id": 6,
       "name": "Aire Acondicionado 3200w Frio / Calor",
       "description": "AIRE SPLIT 3200W TACA-3200WCHSA/KC FC TCL. Capacidad frio 3200 Watts. Capacidad calor 3300 Watts. Potencia Electrica(W)frio 996. Potencia Electrica(W)calor 1028. Eficiencia energética calor C. Eficiencia energética frio A. Frigorias 2750 UNIDAD INTERIOR. Peso Bruto 10kg. Peso Neto 7 kg",
-      "price": 90999,
+      "price": 100000,
       "discount": 12,
       "image": "img-aire-acondicionado.jpg",
       "category": "in-sale"
@@ -150,6 +150,15 @@
       "price": 20599,
       "discount": 20,
       "image": "default-image.png",
+      "category": "in-sale"
+   },
+   {
+      "id": 18,
+      "name": "DISCO EXTERNO SEAGATE BASIC 2TB USB 3.0",
+      "description": "La forma fácil de almacenar y listo!\r\nHaga frente a su rutina con una copia de seguridad fácil y confiable. Sencilla- compacta y compatible con PC- la solución Seagate® Basic le brinda almacenamiento adicional de forma portátil y le permite llevar archivos pesados al viajar.",
+      "price": 15600,
+      "discount": 0,
+      "image": "1661792645693_products_.png",
       "category": "visited"
    }
 ]
